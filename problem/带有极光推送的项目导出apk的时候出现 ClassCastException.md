@@ -1,6 +1,8 @@
 # 带有极光推送的项目导出apk的时候出现 ClassCastException
 > 项目中集成的有极光推送，debug模式下没有问题，当要导出成apk的时候碰到两种类型的错误
 
+# 0x00 错误日志
+
 错误日志如下：
 	
 	Warning: android.support.v4.app.AppOpsManagerCompat23: can't find referenced method 'java.lang.Object getSystemService(java.lang.Class)' in class android.content.Context
@@ -51,3 +53,25 @@
 	at proguard.ProGuard.main(ProGuard.java:492) 
 
  
+## 0x01错误分析
+ * 类名: can't find referenced method '方法名' in class 类名
+ 
+ 	> 导出apk的时候会对代码进行混淆，有些第三方的jar包已经自带混淆或者不能混淆，导致了此类型错误
+ * java.lang.ClassCastException: java.lang.Object cannot be cast to  类型转换错误
+ 
+	> Progard 版本太低导致兼容心问题
+
+## 0x02解决方案
+
+ * 对于第一种错误，需要在混淆的配置文件中添加如下代码：
+ 		
+		# 不警告   
+		-dontwarn com.google.**
+		# 混淆的时候保留，不进行混淆
+		-keep class com.google.gson.** {*;} 
+ 
+ * 对于第二个问题需要使用较高版本（4.x以上proguard，目前最新版是5.2.1）的proguard进行打包，这个在[极光推送的开发者平台](http://docs.jpush.io/guideline/faq/#android)也有介绍。
+
+
+## 0x03 参考资料
+[极光推送的开发者平台#Android集成常见问题](http://docs.jpush.io/guideline/faq/#android)
