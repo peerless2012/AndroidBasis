@@ -4,9 +4,9 @@
 ## [带有极光推送的项目导出apk的时候出现 ClassCastException](https://github.com/peerless2012/AndroidBasis/blob/master/problem/%E5%B8%A6%E6%9C%89%E6%9E%81%E5%85%89%E6%8E%A8%E9%80%81%E7%9A%84%E9%A1%B9%E7%9B%AE%E5%AF%BC%E5%87%BAapk%E7%9A%84%E6%97%B6%E5%80%99%E5%87%BA%E7%8E%B0%20ClassCastException.md)
 项目中集成的有极光推送，debug模式下没有问题，当要导出成apk的时候碰到两种类型的错误:
 
-* Warning: android.support.v4.app.AppOpsManagerCompat23: can't find referenced method 'java.lang.Object getSystemService(java.lang.Class)' in class android.content.Context
+* `Warning: android.support.v4.app.AppOpsManagerCompat23: can't find referenced method 'java.lang.Object getSystemService(java.lang.Class)' in class android.content.Context`
 
-* Warning: android.support.v4.app.AppOpsManagerCompat23: can't find referenced method 'java.lang.Object getSystemService(java.lang.Class)' in class android.content.Context
+* `java.lang.ClassCastException: java.lang.Object cannot be cast to java.lang.String`
 
 ## [服务或广播中无法启动设备管理员激活界面的问题](https://github.com/peerless2012/AndroidBasis/blob/master/problem/%E6%9C%8D%E5%8A%A1%E6%88%96%E5%B9%BF%E6%92%AD%E4%B8%AD%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E5%91%98%E6%BF%80%E6%B4%BB%E7%95%8C%E9%9D%A2%E7%9A%84%E9%97%AE%E9%A2%98.md)
 
