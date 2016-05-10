@@ -74,11 +74,11 @@
 
 	@Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        //a lot of code
+        //...
         if (mLayout == null) {
             makeNewLayout(want, hintWant, boring, hintBoring,width - getCompoundPaddingLeft() - getCompoundPaddingRight(), false);
         } else {
-            //some code
+            //...
         }
     }
 	
@@ -86,10 +86,10 @@
                                  BoringLayout.Metrics boring,
                                  BoringLayout.Metrics hintBoring,
                                  int ellipsisWidth, boolean bringIntoView) {
-        //a lot of code
+        //...
         mLayout = makeSingleLayout(wantWidth, boring, ellipsisWidth, alignment, shouldEllipsize,
                 effectiveEllipsize, effectiveEllipsize == mEllipsize);
-        //a lot of code
+        //...
     }
 	private void setText(CharSequence text, BufferType type,boolean notifyBefore, int oldlen) {
         // a lot of code
@@ -100,24 +100,15 @@
     }
 	
 	private void checkForRelayout() {
-        if ((mLayoutParams.width != LayoutParams.WRAP_CONTENT ||
-                (mMaxWidthMode == mMinWidthMode && mMaxWidth == mMinWidth)) &&
-                (mHint == null || mHintLayout != null) &&
-                (mRight - mLeft - getCompoundPaddingLeft() - getCompoundPaddingRight() > 0)) {
-            
-            makeNewLayout(want, hintWant, UNKNOWN_BORING, UNKNOWN_BORING,
-                          mRight - mLeft - getCompoundPaddingLeft() - getCompoundPaddingRight(),
-                          false);
+        if (...) {
 
-            if (mEllipsize != TextUtils.TruncateAt.MARQUEE) {
-                if (mLayoutParams.height != LayoutParams.WRAP_CONTENT &&
-                    mLayoutParams.height != LayoutParams.MATCH_PARENT) {
+            if (...) {
+                if (...) {
                     invalidate();
                     return;
                 }
 
-                if (mLayout.getHeight() == oldht &&
-                    (mHintLayout == null || mHintLayout.getHeight() == oldht)) {
+                if (...) {
                     invalidate();
                     return;
                 }
@@ -145,6 +136,7 @@
 View.java
 
 	void assignParent(ViewParent parent) {
+		//父View赋值给子View
         if (mParent == null) {
             mParent = parent;
         } else if (parent == null) {
@@ -172,6 +164,7 @@ View.java
             final ViewParent p = mParent;
             if (p != null && ai != null && l < r && t < b) {
                 //...
+				//调用父View方法
                 p.invalidateChild(this, damage);
             }
             //...
@@ -224,6 +217,7 @@ ViewGroup.java
         AttachInfo ai = mAttachInfo;
         if (...) {
             //...
+			//把AttachInfo赋值给子View
             child.dispatchAttachedToWindow(mAttachInfo, (mViewFlags&VISIBILITY_MASK));
             //...
         }
@@ -243,6 +237,7 @@ ViewGroup.java
                     view = (View) parent;
                 }
                 //...
+				//调用父View的方法，然后把父View中对于父View的父View的引用返回
                 parent = parent.invalidateChildInParent(location, dirty);
                 //...
             } while (parent != null);
@@ -250,10 +245,8 @@ ViewGroup.java
     }
 
 	public ViewParent invalidateChildInParent(final int[] location, final Rect dirty) {
-        if ((mPrivateFlags & PFLAG_DRAWN) == PFLAG_DRAWN ||
-                (mPrivateFlags & PFLAG_DRAWING_CACHE_VALID) == PFLAG_DRAWING_CACHE_VALID) {
-            if ((mGroupFlags & (FLAG_OPTIMIZE_INVALIDATE | FLAG_ANIMATION_DONE)) !=
-                        FLAG_OPTIMIZE_INVALIDATE) {
+        if (...) {
+            if (...) {
                 //...
                 return mParent;
             } else {
