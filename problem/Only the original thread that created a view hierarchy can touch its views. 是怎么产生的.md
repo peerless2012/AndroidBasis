@@ -264,3 +264,70 @@ ViewGroup.java
 
         return null;
     }
+
+* 当需要添加子View的时候会调用方法`addView(View v)`方法，该方法最终调用的是`				addViewInner(View child, int index, LayoutParams params,
+            boolean preventRequestLayout)`，在这个方法里会把当前`ViewGroup`赋值给子`View`的`mParent`，并且会把`AttachInfo`也赋值给子`View`。
+* 当View（或者是ViewGroup）调用`invalidate()`方法的时候，会调用父View的`invalidateChild(View child, final Rect dirty)`，这里面有一个`do while`循环，每循环一次会调用`parent = parent.invalidateChildInParent(location, dirty)`,这个方法的意思就是调用父`View`的`invalidateChildInParent`方法，然后把父`View`中的`mParent`返回，下一次就调用当前`View`父`View`的父`View`的`invalidateChildInParent`方法，直到到最外面的`View`节点。
+* 最终会遍历到根节点，也就是ViewRoot，调用ViewRoot的`invalidateChildInParent`方法，实际是调用`ViewRoot`的实现类`ViewRootImpl`身上的`invalidateChildInParent`方法。
+
+ViewRootImpl.java
+
+	final Thread mThread;
+	
+	public ViewRootImpl(Context context, Display display) {
+        mThread = Thread.currentThread();
+        //...
+    }
+	
+	@Override
+    public void invalidateChild(View child, Rect dirty) {
+        invalidateChildInParent(null, dirty);
+    }
+
+    @Override
+    public ViewParent invalidateChildInParent(int[] location, Rect dirty) {
+        checkThread();
+        //...
+    }
+	
+	void checkThread() {
+        if (mThread != Thread.currentThread()) {
+            throw new CalledFromWrongThreadException(
+                    "Only the original thread that created a view hierarchy can touch its views.");
+        }
+    }
+
+
+* `ViewRootImpl`创建的时候，创建它的`Thread`会赋值给`mThread`，当然肯定是主线程创建的。
+* 当`ViewGroup`中的`invalidateChild(View child, final Rect dirty)`方法循环到最外层的时候，这个`mParent`就是`ViewRootImpl`。
+* 当调用到`ViewRootImpl`的`invalidateChildInParent(int[] location, Rect dirty)`方法的时候会去检测线程，也就是`checkThread()`。
+* `checkThread()`里面会判断当前线程是不是主线程，如果不是的就抛出异常。
+
+至此，分析结束。
+
+## 0x04 一个有趣的现象
+如果在TextView被初始化的时候，开启子线程去操作ui界面，代码如下：
+
+	textView = (TextView) findViewById(R.id.tv);
+		new Thread(new Runnable() {
+			public void run() {
+				textView.setText("我是文本来自子线程");
+			}
+		}).start();
+
+是没有任何问题的，为什么呢？
+
+其实原理也很简单，在这个时候，整个界面还没显示，那么`TextView`的`onMeasure`方法还没有执行，那么`mLayout`也就是空，在`setText`方法里已经有判断了，如果`mLayout`为空，则不会执行`checkForRelayout()`，当然也就不会崩溃了。
+
+这时候你可能会发现，设置文本被`mLayout==null`绕过了，那么我直接调用`invalidate()`方法呢？代码如下：
+
+	textView = (TextView) findViewById(R.id.tv);
+		new Thread(new Runnable() {
+			public void run() {
+				textView.invalidate();
+			}
+		}).start();
+
+这个也是不会崩溃的，不过目前还没找到代码作为依据，如果有知道的小伙伴，可以[@](mailto:peerless2012@126.com)我。
+
+时间比较紧张，如有遗漏，还请不吝指教。
