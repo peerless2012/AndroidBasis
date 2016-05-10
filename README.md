@@ -1,6 +1,12 @@
 # AndroidBasis
 > Android基础总结
 
+## [Only the original thread that created a view hierarchy can touch its views. 是怎么产生的](https://github.com/peerless2012/AndroidBasis/blob/master/problem/Only%20the%20original%20thread%20that%20created%20a%20view%20hierarchy%20can%20touch%20its%20views.%20%E6%98%AF%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E7%9A%84.md)
+
+我们都知道，在Android里面，只有主线程（`MainThread`）才可以更新ui，比如设置`TextView`的文本内容，`ImageView`的图片等等。
+
+只要我们在非主线程去操作ui界面，就是抛出`"Only the original thread that created a view hierarchy can touch its views."`的异常。那么这个异常时怎么抛出来的呢？
+
 ## [带有极光推送的项目导出apk的时候出现 ClassCastException](https://github.com/peerless2012/AndroidBasis/blob/master/problem/%E5%B8%A6%E6%9C%89%E6%9E%81%E5%85%89%E6%8E%A8%E9%80%81%E7%9A%84%E9%A1%B9%E7%9B%AE%E5%AF%BC%E5%87%BAapk%E7%9A%84%E6%97%B6%E5%80%99%E5%87%BA%E7%8E%B0%20ClassCastException.md)
 项目中集成的有极光推送，debug模式下没有问题，当要导出成apk的时候碰到两种类型的错误:
 
