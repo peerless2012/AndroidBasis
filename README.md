@@ -1,5 +1,5 @@
 # AndroidBasis
-> Android基础总结
+> Android笔记
 
 ## [Only the original thread that created a view hierarchy can touch its views. 是怎么产生的](https://github.com/peerless2012/AndroidBasis/blob/master/problem/Only%20the%20original%20thread%20that%20created%20a%20view%20hierarchy%20can%20touch%20its%20views.%20%E6%98%AF%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E7%9A%84.md)
 
