@@ -1,6 +1,10 @@
 # AndroidBasis
 > Android笔记
 
+
+## [背景透明的Dialog](https://github.com/peerless2012/AndroidBasis/blob/master/UI/%E9%80%8F%E6%98%8E%E8%83%8C%E6%99%AFDialog.md)
+Android中用style的方式实现背景透明的对话框。
+
 ## [初识Realm](https://github.com/peerless2012/AndroidBasis/blob/master/Study/%E5%88%9D%E8%AF%86Realm.md)
 __Realm__ 让你能够高效地编写 app 的模型层代码，保证你的数据被安全、快速地存储。它具有 __跨平台__ 、 __简单易用__ ， __可视化__ 的特点。
 
