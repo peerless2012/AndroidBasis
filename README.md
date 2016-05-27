@@ -1,6 +1,11 @@
 # AndroidBasis
 > Android笔记
 
+## [初识Realm](https://github.com/peerless2012/AndroidBasis/blob/master/Study/%E5%88%9D%E8%AF%86Realm.md)
+__Realm__ 让你能够高效地编写 app 的模型层代码，保证你的数据被安全、快速地存储。它具有 __跨平台__ 、 __简单易用__ ， __可视化__ 的特点。
+
+所以，赶快开始吧！
+
 ## [Only the original thread that created a view hierarchy can touch its views. 是怎么产生的](https://github.com/peerless2012/AndroidBasis/blob/master/problem/Only%20the%20original%20thread%20that%20created%20a%20view%20hierarchy%20can%20touch%20its%20views.%20%E6%98%AF%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E7%9A%84.md)
 
 我们都知道，在Android里面，只有主线程（`MainThread`）才可以更新ui，比如设置`TextView`的文本内容，`ImageView`的图片等等。
