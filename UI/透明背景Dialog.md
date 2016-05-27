@@ -1,6 +1,6 @@
 # 透明背景Dialog
 
-## 背景
+## 0x00 背景
 Android中对话框主要用到Dialog和AlertDialog两种。
 
 __Dialog：__
@@ -33,10 +33,10 @@ Dialog和Alert可以实现类似的效果，不过从给出的接口来看：
 	> 
 	> 缺点是需要自己去定义。
 
-## 尝试解决
+## 0x01 尝试解决
 我们在这里就不用布局这么low的方式去做了，我们用Dialog的方式去实现，这样就可以在很多地方灵活应用。
 
-### AlertDialog
+### 1. AlertDialog
 首先想到的就是AlertDialog。因为他封装的比较好，提供的方法也比较多，如果用他实现了，我们会方便很多。
 
 自定义Widget的属性，我们一般从style入手：
@@ -67,7 +67,7 @@ Dialog和Alert可以实现类似的效果，不过从给出的接口来看：
 
 翻了一段时间源码，真没发现哪里可以设置，只能依依不舍的放弃了。
 
-### Dialog
+### 2. Dialog
 既然AlertDialog无法实现，那就试试Dialog吧。主题样式如下：
 
 	<style name="TransDialog" parent="@android:style/Theme.Dialog">
@@ -81,14 +81,14 @@ Dialog和Alert可以实现类似的效果，不过从给出的接口来看：
 
 解决了！！！2333
 
-## 结果
+## 0x03 结果
 根据上述尝试，如果想要一个窗口背景和内容区域背景透明的Dialog，只能用Dialog + 透明style来实现了。
 
-## 写在最后的
+## 0x04 写在最后的
 
 Android显示对话框还有一个DialogFragment，对于它我有段血泪史，稍后再说。
 
-## 关于
+## 0x05 关于
 Author peerless2012
 
 Email  [peerless2012@126.con](mailto:peerless2012@126.con)
