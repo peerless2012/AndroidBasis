@@ -1,5 +1,7 @@
 # Only the original thread that created a view hierarchy can touch its views. 是怎么产生的
-***
+
+如果你觉得对你有用，还请不吝 __戳一下右上角__ ，你的鼓励就是我的动力！666
+
 ## 0x00 现象
 我们都知道，在Android里面，只有主线程（`MainThread`）才可以更新ui，比如设置`TextView`的文本内容，`ImageView`的图片等等。
 
