@@ -1,6 +1,10 @@
 # AndroidBasis
 > Android笔记
 
+## [Api21以下的LayoutInflater中setFactory2的bug是怎么产生的](https://github.com/peerless2012/AndroidBasis/blob/master/problem/Api21%E4%BB%A5%E4%B8%8B%E7%9A%84LayoutInflater%E4%B8%ADsetFactory2%E7%9A%84bug%E6%98%AF%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E7%9A%84.md)
+对于Api >=11 并且 < 21,在FrameWork层有一个阻止已经设置Factory2的LayoutInflater的clone对象的Factory2的没有正确合并的bug。
+
+那么这个bug是怎么产生的？又是怎么解决的？
 
 ## [背景透明的Dialog](https://github.com/peerless2012/AndroidBasis/blob/master/UI/%E9%80%8F%E6%98%8E%E8%83%8C%E6%99%AFDialog.md)
 Android中用style的方式实现背景透明的对话框。
