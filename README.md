@@ -1,6 +1,9 @@
 # AndroidBasis
 > Android笔记
 
+## [利用Proguard移除无用代码以及碰到的坑](https://github.com/peerless2012/AndroidBasis/blob/master/%e5%88%a9%e7%94%a8Proguard%e7%a7%bb%e9%99%a4%e6%97%a0%e7%94%a8%e4%bb%a3%e7%a0%81%e4%bb%a5%e5%8f%8a%e7%a2%b0%e5%88%b0%e7%9a%84%e5%9d%91.md)
+利用Proguard移除代码中无用code，例如log。
+
 ## [Api21以下的LayoutInflater中setFactory2的bug是怎么产生的](https://github.com/peerless2012/AndroidBasis/blob/master/problem/Api21%E4%BB%A5%E4%B8%8B%E7%9A%84LayoutInflater%E4%B8%ADsetFactory2%E7%9A%84bug%E6%98%AF%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E7%9A%84.md)
 对于Api >=11 并且 < 21,在FrameWork层有一个阻止已经设置Factory2的LayoutInflater的clone对象的Factory2的没有正确合并的bug。
 
