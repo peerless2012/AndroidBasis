@@ -1,9 +1,10 @@
 ## 利用Proguard移除无用代码以及碰到的坑
-### 0x00 起因
+## 0x00 起因
 今天用反编译工具反编译了下App，如图：
+
 ![截图](https://raw.githubusercontent.com/peerless2012/AndroidBasis/master/Imgs/proguard_pre.png)
 可以看到，里面用来打印生命周期的代买还在里面，虽然说我们一般会封装成log的工具类，然后利用`BuildConfig.DEBUG`来判断是否打印日志，但是这种也太low了是吧？毕竟对于有洁癖的人来说还是多了个空方法，看着不爽。
-### 0x01 解决过程
+## 0x01 解决过程
 由于之前没看到过相关资料，因此只能搜索，历经切换了多次关键字后终于发现了Proguard中`-assumenosideeffects`这个参数，通过配置可以在`release`中移除某些代码。
 
 具体配置是：
@@ -37,20 +38,20 @@ __注意__,问题就出在`getDefaultProguardFile('proguard-android.txt')`这里
 
 问题就在这里，去掉这里或者直接在`buildTypes`移除缺省的配置（前提是保证自定义的配置是完整的满足混淆的）即可。
 
-### 0x02 最后
+## 0x02 最后
 关于`-assumenosideeffects`这个参数如何能移除代码、能移除哪些类型的可参考下面的第一篇资料。
 最后奉上处理后的代码：
 ![截图](https://raw.githubusercontent.com/peerless2012/AndroidBasis/master/Imgs/proguard_after.png)
 是不是干净多了？
 
-### 0x03 补充
+## 0x03 补充
 上面最终结果的图中，圈出来了两个地方：
 * 第一个，由于开启代码优化，因此`Proguard`就把代码中的一个静态方法直接内联到调用的地方了（类似C++的内联函数）
 * 有些log里面的变量是没法去掉的，因此会多一个无用的字符串，具体参考第一个参考资料。
 
 祝大家愉快！！！
 
-### 0x04 参考资料
+## 0x04 参考资料
 * [黑科技:用Proguard的-assumenosideeffects清除log](http://mp.weixin.qq.com/s/DE4gr8cTRQp2jQq3c6wGHQ)
 * [how to use -assumenosideeffects class android.util.Log in my app
 ](http://stackoverflow.com/questions/6408574/how-to-use-assumenosideeffects-class-android-util-log-in-my-app)

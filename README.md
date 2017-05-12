@@ -1,7 +1,7 @@
 # AndroidBasis
 > Android笔记
 
-## [利用Proguard移除无用代码以及碰到的坑](https://github.com/peerless2012/AndroidBasis/blob/master/%e5%88%a9%e7%94%a8Proguard%e7%a7%bb%e9%99%a4%e6%97%a0%e7%94%a8%e4%bb%a3%e7%a0%81%e4%bb%a5%e5%8f%8a%e7%a2%b0%e5%88%b0%e7%9a%84%e5%9d%91.md)
+## [利用Proguard移除无用代码以及碰到的坑](https://github.com/peerless2012/AndroidBasis/blob/master/problem/%E5%88%A9%E7%94%A8Proguard%E7%A7%BB%E9%99%A4%E6%97%A0%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BB%A5%E5%8F%8A%E7%A2%B0%E5%88%B0%E7%9A%84%E5%9D%91.md)
 利用Proguard移除代码中无用code，例如log。
 
 ## [Api21以下的LayoutInflater中setFactory2的bug是怎么产生的](https://github.com/peerless2012/AndroidBasis/blob/master/problem/Api21%E4%BB%A5%E4%B8%8B%E7%9A%84LayoutInflater%E4%B8%ADsetFactory2%E7%9A%84bug%E6%98%AF%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E7%9A%84.md)
