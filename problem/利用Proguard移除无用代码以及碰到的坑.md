@@ -49,14 +49,379 @@ __注意__,问题就出在`getDefaultProguardFile('proguard-android.txt')`这里
 * 第一个，由于开启代码优化，因此`Proguard`就把代码中的一个静态方法直接内联到调用的地方了（类似C++的内联函数）
 * 有些log里面的变量是没法去掉的，因此会多一个无用的字符串，具体参考第一个参考资料。
 
-祝大家愉快！！！
+## 0x04 更新
+通过测试发现，在混淆配置文件中加上下面的代码更保险一点。
 
-## 0x04 参考资料
+	-assumenosideeffects class (your package).LogUtils {
+	public static *** d(...);
+	public static *** e(...);
+	public static *** i(...);
+	public static *** v(...);
+	public static *** println(...);
+	public static *** w(...);
+	public static *** wtf(...);
+	}
+
+另外附上测试结果：
+	
+工具类：
+
+	import android.util.Log;
+
+	/**
+	 * @Author peerless2012
+	 * @Email peerless2012@126.com
+	 * @DateTime 2016/11/24 17:10
+	 * @Version V1.0
+	 * @Description: log工具类
+	 * <h1>使用注意</h1>
+	 * 1 尽量使用本工具类（系统工具类只支持String类型）
+	 * 2 msg字段能不拼接就不拼接，避免自动装箱和拆箱。
+	 * 3 TAG最好以常量的方式存在，而不是动态获取。
+	 * 4 不用手动调用toString方法。
+	 */
+	public class LogUtils {
+	
+	    private static boolean DEBUG = BuildConfig.DEBUG;
+	
+	    private static String TAG;
+	
+	    static {
+	        int index = BuildConfig.APPLICATION_ID.lastIndexOf(".");
+	        TAG = BuildConfig.APPLICATION_ID.substring(index);
+	    }
+	
+	    /*-----------------------  VERBOSE  -------------------------*/
+	
+	    public static void v(Object msg) {
+	        o(Log.VERBOSE, TAG, msg);
+	    }
+	
+	    public static void v(long msg) {
+	        l(Log.VERBOSE, TAG, msg);
+	    }
+	
+	    public static void v(float msg) {
+	        f(Log.VERBOSE, TAG, msg);
+	    }
+	
+	    public static void v(double msg) {
+	        d(Log.VERBOSE, TAG, msg);
+	    }
+	
+	    public static void v(String tag, Object msg) {
+	        o(Log.VERBOSE, tag, msg);
+	    }
+	
+	    public static void v(String tag, long msg) {
+	        l(Log.VERBOSE, tag, msg);
+	    }
+	
+	    public static void v(String tag, float msg) {
+	        f(Log.VERBOSE, tag, msg);
+	    }
+	
+	    public static void v(String tag, double msg) {
+	        d(Log.VERBOSE, tag, msg);
+	    }
+	
+	    /*-----------------------  DEBUG  -------------------------*/
+	
+	    public static void d(Object msg) {
+	        o(Log.DEBUG, TAG, msg);
+	    }
+	
+	    public static void d(long msg) {
+	        l(Log.DEBUG, TAG, msg);
+	    }
+	
+	    public static void d(float msg) {
+	        f(Log.DEBUG, TAG, msg);
+	    }
+	
+	    public static void d(double msg) {
+	        d(Log.DEBUG, TAG, msg);
+	    }
+	
+	    public static void d(String tag, Object msg) {
+	        o(Log.DEBUG, tag, msg);
+	    }
+	
+	    public static void d(String tag, long msg) {
+	        l(Log.DEBUG, tag, msg);
+	    }
+	
+	    public static void d(String tag, float msg) {
+	        f(Log.DEBUG, tag, msg);
+	    }
+	
+	    public static void d(String tag, double msg) {
+	        d(Log.DEBUG, tag, msg);
+	    }
+	
+	    /*-----------------------  INFO  -------------------------*/
+	    public static void i(Object msg) {
+	        o(Log.INFO, TAG, msg);
+	    }
+	
+	    public static void i(long msg) {
+	        l(Log.INFO, TAG, msg);
+	    }
+	
+	    public static void i(float msg) {
+	        f(Log.INFO, TAG, msg);
+	    }
+	
+	    public static void i(double msg) {
+	        d(Log.INFO, TAG, msg);
+	    }
+	
+	    public static void i(String tag, Object msg) {
+	        o(Log.INFO, tag, msg);
+	    }
+	
+	    public static void i(String tag, long msg) {
+	        l(Log.INFO, tag, msg);
+	    }
+	
+	    public static void i(String tag, float msg) {
+	        f(Log.INFO, tag, msg);
+	    }
+	
+	    public static void i(String tag, double msg) {
+	        d(Log.INFO, tag, msg);
+	    }
+	
+	    /*-----------------------  WARN  -------------------------*/
+	
+	    public static void w(Object msg) {
+	        o(Log.WARN, TAG, msg);
+	    }
+	
+	    public static void w(long msg) {
+	        l(Log.WARN, TAG, msg);
+	    }
+	
+	    public static void w(float msg) {
+	        f(Log.WARN, TAG, msg);
+	    }
+	
+	    public static void w(double msg) {
+	        d(Log.WARN, TAG, msg);
+	    }
+	
+	    public static void w(String tag, Object msg) {
+	        o(Log.WARN, tag, msg);
+	    }
+	
+	    public static void w(String tag, long msg) {
+	        l(Log.WARN, tag, msg);
+	    }
+	
+	    public static void w(String tag, float msg) {
+	        f(Log.WARN, tag, msg);
+	    }
+	
+	    public static void w(String tag, double msg) {
+	        d(Log.WARN, tag, msg);
+	    }
+	
+	    /*-----------------------  ERROR  -------------------------*/
+	
+	    public static void e(Object msg) {
+	        o(Log.ERROR, TAG, msg);
+	    }
+	
+	    public static void e(Throwable throwable) {
+	        o(Log.ERROR, TAG, Log.getStackTraceString(throwable));
+	    }
+	
+	    public static void e(long msg) {
+	        l(Log.ERROR, TAG, msg);
+	    }
+	
+	    public static void e(float msg) {
+	        f(Log.ERROR, TAG, msg);
+	    }
+	
+	    public static void e(double msg) {
+	        d(Log.ERROR, TAG, msg);
+	    }
+	
+	    public static void e(String tag, Object msg) {
+	        o(Log.ERROR, tag, msg);
+	    }
+	
+	    public static void e(String tag, Throwable throwable) {
+	        o(Log.ERROR, tag, Log.getStackTraceString(throwable));
+	    }
+	
+	    public static void e(String tag, long msg) {
+	        l(Log.ERROR, tag, msg);
+	    }
+	
+	    public static void e(String tag, float msg) {
+	        f(Log.ERROR, tag, msg);
+	    }
+	
+	    public static void e(String tag, double msg) {
+	        d(Log.ERROR, tag, msg);
+	    }
+	
+	
+	
+	    private static void o(int type, String tag, Object msg) {
+	        if (DEBUG) {
+	            if (type == Log.VERBOSE) {
+	                Log.v(tag, msg.toString());
+	            }else if (type == Log.DEBUG) {
+	                Log.d(tag, msg.toString());
+	
+	            } else if (type == Log.INFO) {
+	                Log.i(tag, msg.toString());
+	
+	            } else if (type == Log.WARN) {
+	                Log.w(tag, msg.toString());
+	
+	            } else if (type == Log.ERROR) {
+	                Log.e(tag, msg.toString());
+	
+	            } else if (type == Log.ASSERT) {
+	                Log.wtf(tag, msg.toString());
+	            }
+	        }
+	    }
+	    private static void l(int type, String tag, long msg) {
+	        if (DEBUG) {
+	            if (type == Log.VERBOSE) {
+	                Log.v(tag, String.valueOf(msg));
+	            }else if (type == Log.DEBUG) {
+	                Log.d(tag, String.valueOf(msg));
+	
+	            } else if (type == Log.INFO) {
+	                Log.i(tag, String.valueOf(msg));
+	
+	            } else if (type == Log.WARN) {
+	                Log.w(tag, String.valueOf(msg));
+	
+	            } else if (type == Log.ERROR) {
+	                Log.e(tag, String.valueOf(msg));
+	
+	            } else if (type == Log.ASSERT) {
+	                Log.wtf(tag, String.valueOf(msg));
+	            }
+	        }
+	    }
+	    private static void f(int type, String tag, float msg) {
+	        if (DEBUG) {
+	            if (type == Log.VERBOSE) {
+	                Log.v(tag, String.valueOf(msg));
+	            }else if (type == Log.DEBUG) {
+	                Log.d(tag, String.valueOf(msg));
+	
+	            } else if (type == Log.INFO) {
+	                Log.i(tag, String.valueOf(msg));
+	
+	            } else if (type == Log.WARN) {
+	                Log.w(tag, String.valueOf(msg));
+	
+	            } else if (type == Log.ERROR) {
+	                Log.e(tag, String.valueOf(msg));
+	
+	            } else if (type == Log.ASSERT) {
+	                Log.wtf(tag, String.valueOf(msg));
+	            }
+	        }
+	    }
+	    private static void d(int type, String tag, double msg) {
+	        if (DEBUG) {
+	            if (type == Log.VERBOSE) {
+	                Log.v(tag, String.valueOf(msg));
+	            }else if (type == Log.DEBUG) {
+	                Log.d(tag, String.valueOf(msg));
+	
+	            } else if (type == Log.INFO) {
+	                Log.i(tag, String.valueOf(msg));
+	
+	            } else if (type == Log.WARN) {
+	                Log.w(tag, String.valueOf(msg));
+	
+	            } else if (type == Log.ERROR) {
+	                Log.e(tag, String.valueOf(msg));
+	
+	            } else if (type == Log.ASSERT) {
+	                Log.wtf(tag, String.valueOf(msg));
+	            }
+	        }
+	    }
+	}
+
+之所以重载这么多方法是为了避免入参的时候出现类型转换，比如如果只有一个object类型的参数，那么实际上编译后的代码是带有类型转换的，
+比如：`public static void v(String tag, Object msg)`，如果调用的时候是`v(TAG,90)`,那么实际上编译后的代码是`v(TAG, String.valueOf(90))`，因此是无法完全去掉日志相关代码的。
+
+#### 测试代码：
+
+	public class App extends Application{
+	
+	    private static final String TAG = "App";
+	
+	    @Override
+	    public void onCreate() {
+	        super.onCreate();
+	    }
+	
+	    @Override
+	    protected void attachBaseContext(Context base) {
+	        super.attachBaseContext(base);
+			LogUtils.i(TAG, base); // 支持
+	        LogUtils.i(TAG, "attachBaseContext = " + base); // 不支持
+	        LogUtils.i(TAG, "attachBaseContext = " + base.toString()); // 不支持
+	    }
+	
+	    @Override
+	    public void onTrimMemory(int level) {
+	        super.onTrimMemory(level); // 支持
+	        LogUtils.i(TAG, " onTrimMemory "); // 支持
+	        LogUtils.i(TAG, level); // 支持
+	        LogUtils.i(TAG, level * 1.0f); // 支持
+	        LogUtils.i(TAG, level * 1.5); // 支持
+	        LogUtils.i(TAG, (byte)level); // 支持
+	        try {
+	            if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN) {
+	                throw new RuntimeException();
+	            }
+	        } catch (Exception e) {
+	            LogUtils.e(TAG, e); // 支持
+	        }
+	        LogUtils.i(TAG, "onTrimMemory" + level); // 支持
+	    }
+	}
+
+#### 测试结果：
+
+	protected void attachBaseContext(Context context) {
+        super.attachBaseContext(context);
+        new StringBuilder("attachBaseContext = ").append(context);
+        new StringBuilder("attachBaseContext = ").append(context.toString());
+    }
+
+	
+	public void onTrimMemory(int i) {
+        super.onTrimMemory(i);
+        if (i == 20) {
+            try {
+                throw new RuntimeException();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+## 0x05 参考资料
 * [黑科技:用Proguard的-assumenosideeffects清除log](http://mp.weixin.qq.com/s/DE4gr8cTRQp2jQq3c6wGHQ)
 * [how to use -assumenosideeffects class android.util.Log in my app
 ](http://stackoverflow.com/questions/6408574/how-to-use-assumenosideeffects-class-android-util-log-in-my-app)
 
-## 0x05 关于
+## 0x06 关于
 Author peerless2012
 
 Email  [peerless2012@126.con](mailto:peerless2012@126.con)
