@@ -1,6 +1,9 @@
 # AndroidBasis
 > Android笔记
 
+## [一分钟实现一个RoundImageView](https://github.com/peerless2012/AndroidBasis/blob/master/graphics/RoundImageView.md)
+利用`RoundedBitmapDrawableFactory`快速实现一个`RoundImageView`。
+
 ## [利用Proguard移除无用代码以及碰到的坑](https://github.com/peerless2012/AndroidBasis/blob/master/problem/%E5%88%A9%E7%94%A8Proguard%E7%A7%BB%E9%99%A4%E6%97%A0%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BB%A5%E5%8F%8A%E7%A2%B0%E5%88%B0%E7%9A%84%E5%9D%91.md)
 利用Proguard移除代码中无用code，例如log。
 
